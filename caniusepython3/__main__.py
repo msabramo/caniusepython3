@@ -28,6 +28,12 @@ import io
 import logging
 import sys
 
+try:
+    from colorama import Fore, Back, Style
+    color_enabled = True
+except ImportError:
+    color_enabled = False
+
 
 def projects_from_requirements(requirements):
     """Extract the project dependencies from a Requirements specification."""
@@ -97,7 +103,11 @@ def projects_from_cli(args):
 def message(blockers):
     """Create a sequence of key messages based on what is blocking."""
     if not blockers:
-        return ['You have 0 projects blocking you from using Python 3!']
+        msg = 'You have 0 projects blocking you from using Python 3!'
+        if color_enabled:
+            beer = u'\U0001f37a'
+            msg = beer + '  ' + Fore.GREEN + Style.BRIGHT + msg + Fore.RESET
+        return [msg]
     flattened_blockers = set()
     for blocker_reasons in blockers:
         for blocker in blocker_reasons:

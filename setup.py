@@ -23,6 +23,7 @@ setup(name='caniusepython3',
       include_package_data=True,
       install_requires=['distlib', 'setuptools', 'pip',  # Input flexibility
                         'argparse', 'futures'],  # Functionality
+      extras_require={'color': ['colorama']},
       tests_require=tests_require,  # Testing, external due to Travis
       test_suite='caniusepython3.test',
       classifiers=[
